@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const moment = require('moment')
 const app = express();
-const port = 3000;
+const port = 3001;
 
 const A = 0.68, B = 5.88, C = 0.68, D = 5.88, E = 45, F = -22.5, V0 = 2.8;
 
@@ -41,15 +41,15 @@ app.post("/add", (req, res) => {
     res.send('川表水位MUST BE GREATER THAN B');
     return;
   }
-  const input1 = Math.round((tempInput1 - B) / A).toString(16);
+  const input1 = Math.round((tempInput1 - B) / A * 1000).toString(16);
   const tempInput2 = parseFloat(innerWaterLevel);
   if (tempInput2 < D) {
     res.send('川裏水位MUST BE GREATER THAN D');
     return;
   }
-  const input2 = Math.round((tempInput2 - D) / C).toString(16);
+  const input2 = Math.round((tempInput2 - D) / C * 1000).toString(16);
   let tempInput3 = (parseFloat(gateOpenningLevel) - F) / E;
-  const input3 = Math.round(tempInput3 < V0? tempInput3: (tempInput3 + V0)).toString(16);
+  const input3 = Math.round(tempInput3 < V0? tempInput3 * 1000: (tempInput3 + V0) * 1000).toString(16);
   if (input3 < 0) {
     res.send('INPUT3 MUST BE GREATER THAN 0');
     return;

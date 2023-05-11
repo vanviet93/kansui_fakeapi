@@ -75,8 +75,8 @@ app.post("/add", (req, res) => {
   fs.writeFileSync('./data.json', JSON.stringify(newData));
   res.send("SUCCESS");
 })
-app.get("/list?groupId=", (req, res) => {
-  if (req.route.query.groupId!=='DG0000000319') return [];
+app.get("/list/:groupId", (req, res) => {
+  if (req.params.groupId!=='DG0000000319') return res.json([]);
   const data = fs.readFileSync('./data.json', 'utf8');
   res.addH
   res.json(JSON.parse(data));

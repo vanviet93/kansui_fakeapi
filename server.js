@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
-const moment = require('moment')
+const moment = require('moment');
+const cors = require('cors');
 const app = express();
 const port = 3001;
 
@@ -11,6 +12,7 @@ app.use(express.urlencoded());
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
+app.use(cors());
 
 app.get("/add", (req, res) => {
   res.sendFile(__dirname + "/input.html")
@@ -75,6 +77,7 @@ app.post("/add", (req, res) => {
 })
 app.get("/list", (req, res) => {
   const data = fs.readFileSync('./data.json', 'utf8');
+  res.addH
   res.json(JSON.parse(data));
 })
 const server = app.listen(port, () => {

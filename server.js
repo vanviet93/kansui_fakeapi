@@ -33,7 +33,7 @@ app.post("/add", (req, res) => {
   const data = fs.readFileSync('./data.json', 'utf8');
   const newData = JSON.parse(data);
   const time = new Date();
-  time.setHours(time.getHours() + 6);
+  time.setHours(time.getHours() + 9);
   const tx = moment(time).format('yyyy-MM-DD HH:mm:ss');
   const {
     innerWaterLevel,

@@ -36,10 +36,12 @@ app.post("/add", (req, res) => {
   time.setHours(time.getHours() + 9);
   const tx = moment(time).format('yyyy-MM-DD HH:mm:ss');
   const {
+    powerVoltage,
     innerWaterLevel,
     outerWaterLevel,
     gateOpenningLevel
   } = req.body;
+  const input0 = Math.round(parseFloat(powerVoltage)/0.5).toString(16);
   const tempInput1 = parseFloat(outerWaterLevel);
   if (tempInput1 < B) {
     res.send('川表水位MUST BE GREATER THAN B');
@@ -58,7 +60,9 @@ app.post("/add", (req, res) => {
     res.send('INPUT3 MUST BE GREATER THAN 0');
     return;
   }
-  const payload = '139ad74cc93c1f02' +  
+  const payload = '139ad74cc93c'+
+  ('0'.repeat(Math.max(2 - input0.length, 0)) + input0) + 
+  '02' +  
   ('0'.repeat(Math.max(4 - input1.length, 0)) + input1) + 
   ('0'.repeat(Math.max(4 - input2.length, 0)) + input2) + 
   ('0'.repeat(Math.max(4 - input3.length, 0)) + input3) + 

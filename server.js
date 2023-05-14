@@ -41,7 +41,7 @@ app.post("/add", (req, res) => {
     outerWaterLevel,
     gateOpenningLevel
   } = req.body;
-  const input0 = Math.round(parseFloat(powerVoltage)/0.5).toString(16);
+  const input0 = (Math.round(parseFloat(powerVoltage)/0.5) + 0b01000000).toString(16);
   const tempInput1 = parseFloat(outerWaterLevel);
   if (tempInput1 < B) {
     res.send('川表水位MUST BE GREATER THAN B');
